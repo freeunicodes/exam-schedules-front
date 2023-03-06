@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Search from "./components/Search";
-import {ThemeProvider, createTheme} from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from "./components/header";
 
@@ -21,12 +21,24 @@ const darkTheme = createTheme({
 });
 
 function App() {
+
+    const [uniForTheme, setUniForTheme] = useState<"primary" | "secondary" | "info">("primary")
+    const [currUni, setCurrUni] = useState<string>("Freeuni")
+
+    const setTheme = (theme: "primary" | "secondary" | "info") => {
+        setUniForTheme(theme)
+    }
+
+    const setUni = (uni: string) => {
+        setCurrUni(uni)
+    }
+
     return (
         <div className="App">
             <ThemeProvider theme={darkTheme}>
                 <CssBaseline/>
-                <Header/>
-                <Search/>
+                <Header uniForTheme={uniForTheme}/>
+                <Search currUni={currUni} uniForTheme={uniForTheme} setTheme={setTheme} setUni={setUni}/>
             </ThemeProvider>
         </div>
     );
